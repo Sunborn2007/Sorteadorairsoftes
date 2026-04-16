@@ -107,10 +107,10 @@ export default function SorteadorPage() {
               <button
                 key={method}
                 onClick={() => { setDrawMethod(method); setResult(null); }}
-                className={`px-6 py-2 rounded border font-medium capitalize transition-colors ${
+                className={`px-6 py-2 rounded border-2 font-medium capitalize transition-colors ${
                   drawMethod === method
-                    ? 'bg-black text-white border-black'
-                    : 'bg-white text-black border-gray-400 hover:border-black'
+                    ? 'bg-blue-600 text-white border-blue-700 ring-2 ring-blue-300 shadow'
+                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200 hover:border-gray-500'
                 }`}
               >
                 {method === 'times' ? 'Times' : 'Aleatório'}
@@ -129,10 +129,10 @@ export default function SorteadorPage() {
               <button
                 key={order}
                 onClick={() => { setGroupOrder(order); setResult(null); }}
-                className={`px-6 py-2 rounded border font-medium transition-colors ${
+                className={`px-6 py-2 rounded border-2 font-medium transition-colors ${
                   groupOrder === order
-                    ? 'bg-black text-white border-black'
-                    : 'bg-white text-black border-gray-400 hover:border-black'
+                    ? 'bg-blue-600 text-white border-blue-700 ring-2 ring-blue-300 shadow'
+                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200 hover:border-gray-500'
                 }`}
               >
                 {order === 'maiores' ? 'Maiores primeiro' : 'Menores primeiro'}
@@ -161,7 +161,7 @@ export default function SorteadorPage() {
         <button
           onClick={handleDraw}
           disabled={!canDraw || drawing}
-          className="mb-10 px-8 py-3 bg-black text-white rounded font-bold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-800 transition-colors"
+          className="mb-10 px-8 py-3 bg-emerald-600 text-white rounded-md font-bold shadow-md ring-2 ring-emerald-300 hover:bg-emerald-700 hover:ring-emerald-400 disabled:bg-gray-300 disabled:text-gray-500 disabled:ring-0 disabled:shadow-none disabled:cursor-not-allowed transition-colors"
         >
           {drawing ? 'Sorteando...' : 'Sortear'}
         </button>
@@ -170,25 +170,33 @@ export default function SorteadorPage() {
       {/* Result */}
       {result && (
         <div className="mb-10">
-          <h2 className="text-lg font-bold mb-4">Resultado</h2>
-          <div className="flex flex-wrap gap-6">
-            {result.map((team) => (
-              <div key={team.name} className="border border-gray-300 rounded p-4 min-w-64">
-                <div className="flex items-baseline justify-between mb-3">
-                  <span className="font-bold">{team.name}</span>
-                  <span className="text-xs text-gray-500">média {team.avgYears} anos</span>
+          <div id="print-area">
+            <h2 className="text-lg font-bold mb-4">Resultado</h2>
+            <div className="flex flex-wrap gap-6">
+              {result.map((team) => (
+                <div key={team.name} className="border border-gray-300 rounded p-4 min-w-64">
+                  <div className="flex items-baseline justify-between mb-3">
+                    <span className="font-bold">{team.name}</span>
+                    <span className="text-xs text-gray-500">média {team.avgYears} anos</span>
+                  </div>
+                  <ul className="text-sm space-y-1">
+                    {team.players.map((p, i) => (
+                      <li key={i} className="flex justify-between gap-4">
+                        <span>{p.firstName} {p.lastName}</span>
+                        <span className="text-gray-400 text-xs">{p.team} · {p.modality}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="text-sm space-y-1">
-                  {team.players.map((p, i) => (
-                    <li key={i} className="flex justify-between gap-4">
-                      <span>{p.firstName} {p.lastName}</span>
-                      <span className="text-gray-400 text-xs">{p.team} · {p.modality}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          <button
+            onClick={() => window.print()}
+            className="no-print mt-6 px-6 py-2 bg-indigo-600 text-white rounded-md font-medium shadow ring-2 ring-indigo-300 hover:bg-indigo-700 hover:ring-indigo-400 transition-colors"
+          >
+            Exportar PDF
+          </button>
         </div>
       )}
 
