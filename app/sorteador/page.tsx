@@ -127,8 +127,8 @@ export default function SorteadorPage() {
       {/* Upload */}
       <div className="mb-4">
         <span className="block text-xl font-medium mb-2">Importe sua Planilha</span>
-        <div className="flex items-center gap-3">
-          <label className="inline-block bg-white text-[#11214a] border-2 border-[#e85d75]/50 rounded px-4 py-2 cursor-pointer hover:bg-[#f5b8c4]/30 hover:border-[#e85d75] transition-colors text-center font-medium">
+        <div className="flex flex-col items-center gap-2">
+          <label className="inline-block bg-[#e85d75] text-white border-2 border-[#c64760] rounded-md px-6 py-3 cursor-pointer font-bold shadow-md ring-2 ring-[#11214a]/30 hover:bg-[#c64760] transition-colors text-center">
             Importar Planilha
             <input
               type="file"
@@ -137,13 +137,17 @@ export default function SorteadorPage() {
               className="hidden"
             />
           </label>
-          <button
-            type="button"
-            onClick={handleDownloadExample}
-            className="px-4 py-2 bg-white text-[#11214a] border-2 border-[#e85d75]/50 rounded font-medium hover:bg-[#f5b8c4]/30 hover:border-[#e85d75] transition-colors"
-          >
-            Baixe planilha de Modelo
-          </button>
+          <span className="text-sm">
+            (
+            <button
+              type="button"
+              onClick={handleDownloadExample}
+              className="text-[#e85d75] underline hover:text-[#c64760] transition-colors font-medium cursor-pointer"
+            >
+              baixe a planilha modelo clicando aqui
+            </button>
+            )
+          </span>
         </div>
       </div>
 
